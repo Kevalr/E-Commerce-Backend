@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const productController = require('../controller/productController');
 
+//Display create-product form/page
+router.get('/create', productController.displayCreateProductPage); 
+
 //Create the product
 router.post("/create", productController.createProduct);
 
