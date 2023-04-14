@@ -1,0 +1,22 @@
+<div class="container">
+  <div id="products-list-container" class="mt-5">
+    <a class="" href="/">/go To Homepage</a>
+    <h2 class="text-center">Product List</h2>
+    <table class="table table-striped">
+        <thead  class="thead-dark">
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% for(product of productList) { %>
+            <tr>
+                <td><%= product.name %> </td>
+                <td><%= product.quantity %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+  </div>
+</div>

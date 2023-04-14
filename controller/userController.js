@@ -1,16 +1,25 @@
 const User = require("../models/user");
-const passport = require("passport");
+const {isAuthenticated} = require('../config/passportConfig');
 
 //Display sign-in page
 module.exports.showSignInPage = (req, res) => {
-  //Will render the sign-in page below in actual app
-  return res.send("Sign-In Page");
+  if(req.isAuthenticated()) {
+    //Redirecting to home page if authenticated
+    return res.redirect('/');
+  }
+  return res.render('sign-in', {
+    title: 'home'
+  });
 };
 
 //Display sign-up page
 module.exports.showSignUpPage = (req, res) => {
-  //Will render the sign-up page below in actual app
-  return res.send("Sign-Up Page");
+  if(req.isAuthenticated()) {
+    //Redirecting to home page if authenticated
+    return res.redirect('/');
+  }
+  return res.render('sign-up', {
+  });
 };
 
 //Creating / Signing-up the User 
@@ -22,15 +31,13 @@ module.exports.signUp = async (req, res) => {
 
   //If existing user with that email not found then only creating the user
   const newUser = await User.create(req.body);
-  res.status(201).send(newUser);
+  res.status(201).redirect('/');
 };
 
 //Sign-in/login the user
-module.exports.signIn = () => {
-  passport.authenticate("local", {
-    failureRedirect: "/users/sign-in",
-    successRedirect: "/",
-  });
+module.exports.signIn = (req, res) => {
+  //While returning success from passport - login, redirecting user to the home page
+    return res.redirect('/');
 };
 
 //Logging out the user
@@ -39,6 +46,6 @@ module.exports.logout = (req, res) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/users/sign-in");
+    return res.redirect("/users/sign-in");
   });
 };

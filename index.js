@@ -5,6 +5,7 @@ const { connectMongoose } = require("./config/databse.js");
 const passport = require("passport");
 const { initializingPassport } = require("./config/passportConfig.js");
 const expressSession = require("express-session");
+const expressLayouts = require('express-ejs-layouts');
 
 //Connectnig to database
 connectMongoose();
@@ -24,14 +25,25 @@ app.use(
       saveUninitialized: false,
     })
   );
-  
 //Intializing passport as a middleware and using passport session method
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Seeting up the static files
+app.use(express.static('./assets'));
+app.use(expressLayouts);
+
+// Extract style and scripts from the sub pages and put it into layouts
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 // --------------  Including Routes ---------------------------------//
 app.use("/", require("./routes"));
+
+
+// setup the view engine
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 //Starting the server
 app.listen(PORT, (err) => {

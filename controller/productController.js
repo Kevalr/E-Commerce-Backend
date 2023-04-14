@@ -4,13 +4,20 @@ const Product = require("../models/product");
 module.exports.getAllProducts = (req, res) => {
   Product.find({})
     .then((result) => {
-      res.status(200).send(result);
+      // res.render('productList');
+      res.status(200).render('productList', {
+        productList: result
+      });
     })
     .catch((error) => {
       console.log(`Error while getting products list`);
       res.status(400).send("Error while getting products list");
     });
 };
+
+module.exports.displayCreateProductPage = (req, res) => {
+  res.render('createProduct');
+}
 
 //Create the product
 module.exports.createProduct = async (req, res) => {
