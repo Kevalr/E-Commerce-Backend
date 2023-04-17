@@ -18,7 +18,6 @@
 </li>
 <li>Install dependencies: <br> npm install</li>
 <li>Start the server: npm start<br> </li>
-<li></li>
 </ol>
 
 <h2>API Endpoints</h2>
