@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 //For connecting to the database - mongodb
 exports.connectMongoose = () => {
-  const databaseURL = "mongodb://127.0.0.1:27017/e-commerce";
+  const databaseURL = "mongodb+srv://kevalradadiya72020:Keval%401234@cluster0.mkqreqi.mongodb.net/?retryWrites=true&w=majority";
 
   mongoose
     .connect(databaseURL)

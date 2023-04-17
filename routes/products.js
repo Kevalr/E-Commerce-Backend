@@ -8,6 +8,12 @@ router.get('/create', productController.displayCreateProductPage);
 //Create the product
 router.post("/create", productController.createProduct);
 
+//Display Update quantity Form
+router.get('/update/:id', productController.displayUpdateProductPage);
+
+//Upfating the product
+router.post('/update/:id',productController.updateProduct);
+
 //fetching all products
 router.get("/", productController.getAllProducts);
 
@@ -15,6 +21,6 @@ router.get("/", productController.getAllProducts);
 router.delete("/:id", productController.deleteProduct);
 
 //update the product quantity
-router.post("/:id/update_quantity", productController.updateProductQuantity);
+router.all("/:id/update_quantity", productController.updateProductQuantity);
 
 module.exports = router;

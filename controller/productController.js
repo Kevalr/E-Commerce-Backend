@@ -1,3 +1,4 @@
+var http = require('http');
 const Product = require("../models/product");
 
 //Returns the list of all products
@@ -15,18 +16,47 @@ module.exports.getAllProducts = (req, res) => {
     });
 };
 
+//Display / Renders the Create product page
 module.exports.displayCreateProductPage = (req, res) => {
-  res.render('createProduct');
+  return res.render('createProduct');
 }
+
+//Display / Renders the UPDATE product page
+module.exports.displayUpdateProductPage = async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    console.log('product found')
+    return res.render('createProduct', {
+      product: product
+    });
+  } 
+  return res.redirect('/products');
+};
 
 //Create the product
 module.exports.createProduct = async (req, res) => {
   const newProduct = await Product.create(req.body);
-  res.status(201).send(newProduct);
+  res.status(201).redirect('/products');
+};
+
+//Update the product
+module.exports.updateProduct = async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  
+  //If product found then updating it
+  if (product) {
+    product.quantity = Number(product.quantity) + Number(req.body.quantity);
+    product
+      .save()
+      .then((doc) => res.send(`Document updated Successfully`))
+      .catch((error) => res.send(`Error while updating quantity - ${error}`));
+    return res.redirect('/products');
+  }
+  return res.send(`No Product is Found on this id`);
 };
 
 //Delete the product
-module.exports.deleteProduct =  (req, res) => {
+module.exports.deleteProduct = (req, res) => {
   Product.findByIdAndDelete(req.params.id)
     .then((result) => {
       if (result) return res.send(`Product Deleted Successfully - ${result}`);
@@ -39,16 +69,16 @@ module.exports.deleteProduct =  (req, res) => {
 
 //Updating the quantitiy of the product
 module.exports.updateProductQuantity = async (req, res) => {
-    const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id);
 
-    //If product found then updating its quantity
-    if(product) {
-        product.quantity = Number(product.quantity) + Number(req.query.number);
-        product
-          .save()
-          .then((doc) => res.send(`Document updated Successfully`))
-          .catch((error) => res.send(`Error while updating quantity - ${error}`));
-    } 
-    return res.send(`No Product is Found on this id`);
-
+  //If product found then updating its quantity
+  if (product) {
+    product.quantity = Number(product.quantity) + Number(req.query.number);
+    product
+      .save()
+      .then((doc) => res.send(`Document updated Successfully`))
+      .catch((error) => res.send(`Error while updating quantity - ${error}`));
+    return res.redirect('/products');
   }
+  return res.send(`No Product is Found on this id`);
+}

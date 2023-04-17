@@ -4,40 +4,14 @@ const User = require("../models/user");
 //Intializing passport to user local stretegy
 exports.initializingPassport = (passport) => {
   //Specifying passport to use local stretegy
-  // passport.use(
-  //   new LocalStrategy(
-  //     {
-  //       usernameField: "email",
-  //     },
-  //     async (email, password, done) => {
-  //       console.log('config 1');
-  //       try {
-  //         console.log('config 2');
-  //         const user = await User.findOne({ email });
-  //         console.log('config 3');
-  //         if (!user) return done(null, false);
-
-  //         if (user.password !== password) return done(null, false);
-
-  //         return done(null, user);
-  //       } catch (error) {
-  //         return done(null, error);
-  //       }
-  //     }
-  //   )
-  // );
-
   passport.use(
     new LocalStrategy(
       {
         usernameField: "email",
       },
       function (email, password, done) {
-        console.log("inside local")
         User.findOne({ email: email })
           .then((user) => {
-            console.log('user --', user);
-            console.log('password --', password);
             if (!user || user.password !== password) {
               console.log("Invalid Username/Password");
               return done(null, false);

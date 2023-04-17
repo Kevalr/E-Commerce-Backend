@@ -3,21 +3,43 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card border-0 shadow rounded-3 mt-5">
                 <div class="card-body p-4 p-sm-5">
-                    <h2 class="card-title text-center mb-5 fw-bold">Create Product</h2>
-                    <form method="POST" action="/products/create">
+                    <h2 class="card-title text-center mb-5 fw-bold">
+                        <% if(locals.product) { %>
+                            Update Product
+                            <% } else { %>
+                                Create Product
+                                <%} %>
+                    </h2>
+                    <% if(locals.product) {%>
+                            <form method="POST" action="/products/update/<%=product._id%>">
+                    <% } else { %>
+                            <form method="POST" action="/products/create">
+                    <% }%>
                         <div class="form-floating mb-3">
-                            <input type="text" name="name" class="form-control" id="floatingInput"
-                                placeholder="Name" required>
-                            <label for="floatingInput">Name</label>
+                            <% if(locals.product) {%>
+                                <input type="text" name="name" value="<%= product.name %>" class="form-control" id="floatingInput"
+                                    placeholder="Name" required disabled>
+                                <% } else { %>
+                                    <input type="text" name="name" class="form-control" id="floatingInput"
+                                        placeholder="Name" required>
+                                <% }%>
+                                    <label for="floatingInput">Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" name="quantity" class="form-control" id="floatingPassword" placeholder="Quantity"
-                                required>
+                            <% if(locals.product) {%>
+                                    <input type="number" name="quantity" value="<%= product.quantity %>" class="form-control" id="floatingPassword"
+                                placeholder="Quantity" required>
+                                <% } else { %>
+                                    <input type="number" name="quantity" class="form-control" id="floatingPassword"
+                                placeholder="Quantity" required>
+                                <% }%>
+                            
                             <label for="floatingPassword">Quantity</label>
                         </div>
 
                         <div class="d-grid">
-                            <button class="btn btn-warning btn-login text-uppercase fw-bold my-2" type="submit">Create Product</button>
+                            <button class="btn btn-warning btn-login text-uppercase fw-bold my-2" type="submit"><%= locals.product ? 'Update' : 'Create' %>
+                                Product</button>
                         </div>
 
                         <div class="d-grid">
