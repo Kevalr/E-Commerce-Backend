@@ -1,5 +1,5 @@
 <h1>E-commerce Backend</h1>
-<p>This project is a backend for an e-commerce application built using Node.js, Express.js, MongoDB, Mongoose, and Passport library for authentication.</p>
+<p>This project is a backend for an e-commerce application built using Node.js, Express.js, MongoDB, Mongoose, EJS and Passport library for authentication.</p>
 
 <h2>Features</h2>
 <ul>
