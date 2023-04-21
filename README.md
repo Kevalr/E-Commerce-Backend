@@ -18,6 +18,8 @@
 </li>
 <li>Install dependencies: <br> npm install</li>
 <li>Start the server: npm start<br> </li>
+<li>Register The User</li>
+<li>Login with crediantials and start using Ecommerce Site!..</li>
 </ol>
 
 <h2>API Endpoints</h2>
