@@ -14,7 +14,7 @@
 
 <h2>Getting Started</h2>
 <ol>
-<li>Clone the repository: <br> git clone https://github.com/kevalr
+<li>Clone the repository: <br> git clone https://github.com/Kevalr/E-Commerce-Backend.git
 </li>
 <li>Install dependencies: <br> npm install</li>
 <li>Start the server: npm start<br> </li>
