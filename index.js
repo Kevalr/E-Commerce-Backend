@@ -1,4 +1,5 @@
 const express = require("express");
+const path  = require('path');
 const app = express();
 const PORT = 8000;
 const { connectMongoose } = require("./config/databse.js");
@@ -43,7 +44,7 @@ app.use("/", require("./routes"));
 
 // setup the view engine
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 
 //Starting the server
 app.listen(PORT, (err) => {
